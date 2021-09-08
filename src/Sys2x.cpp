@@ -1,31 +1,34 @@
 //============================================================================
-// Name        : sys2.cpp
-// Author      : me
-// Version     :
-// Copyright   : my copyright notice
-// Description : Hello World in C++, Ansi-style
+// Name        : Sys2x.cpp
+// Author      : Charles Yarbrough
+// Version     : 0.1.0
+// Copyright   : (c) 2021
+// Description : Command line parser and executor
 //============================================================================
 
-#include <iostream>
-#include "pch.h"
-#include <cstring>
-
-using namespace std;
+#include "Sys2x.hpp"
 
 int main() {
-	char cmd[20]  = "x";   // anything will do
-	int   rep = 6;
-	int loc;
-	cout << "sys2 going to try more" << endl; // prints sys2 going to try more
-	while ( strcmp(cmd, "")  && (rep > 0)) {
-		cout << "give us something to do at rep=" << rep << endl;
+	const int cmd_lth = MAX_CMD_LENGTH;
+	char cmd[cmd_lth] = "ignored command";
+	int rep = 6;
+	cout << "Sys2x is going to try more, commands may be up to " << cmd_lth
+			<< " characters long " << endl;
+	cout << "End input with Control-Z ENTER" << endl;
+
+	while (strcmp(cmd, "") && (rep > 0)) {
+		cout << "\nGive us something to do at rep=" << rep << ": ";
 		cin >> cmd;
 		--rep;
-                loc = 0; while ( cmd[loc] ) {
-		    	   if ( cmd[loc] == '*' ) cmd[loc] = ' ';
-		    	   ++loc; }	      
-        	cout << "your said to do a --> " << cmd << endl;
-       		system(cmd); }
-	cout <<" thats all"  << endl;
+		int loc = 0;
+		while (cmd[loc]) {
+			if (cmd[loc] == '*')
+				cmd[loc] = ' ';
+			++loc;
+		}
+		cout << "You said to do a --> '" << cmd << "'" << endl;
+		system(cmd);
+	}
+	cout << endl << " . . . thats all folks" << endl;
 	return 0;
 }
